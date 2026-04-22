@@ -1,0 +1,26 @@
+---
+description: Decision-making principles to prevent scope creep and prioritize customer value
+alwaysApply: true
+---
+
+# Decision-Making and Scope Control
+
+## Core Principles
+- Default to the smallest shippable slice that proves value; avoid "platform" thinking until the pilot works.
+- Protect against scope creep: if a request introduces a new subsystem, write a 5-line "Why now?" and "What we cut?" note before implementing.
+- Prefer integrations over rebuilds when a client already has a system of record (e.g., Phorest). Don't recreate scheduling unless it is explicitly the product.
+- Any feature must answer: (1) who uses it, (2) what action they take, (3) what metric improves, (4) what can go wrong.
+- When ambiguous, choose the path that reduces operational friction for the customer, even if it's less elegant.
+
+## Do
+- Ship the minimal version that validates the hypothesis.
+- Question whether a feature belongs in this product or should integrate with existing tools.
+- Document trade-offs when making architectural decisions.
+- Prioritize customer workflow over technical elegance.
+
+## Don't
+- Build features "just in case" they're needed.
+- Recreate functionality that exists in client systems.
+- Add complexity without a clear user benefit.
+- Assume more features = better product.
+

@@ -1,0 +1,47 @@
+---
+description: DataProvider adapter pattern, localStorage conventions, and src/lib boundaries
+globs:
+  - "src/lib/**/*.ts"
+  - "src/lib/**/*.tsx"
+alwaysApply: true
+---
+
+# Data Provider Pattern
+
+## Data Provider Pattern
+- Abstract data access behind `DataProvider` interface in `src/lib/dataProvider.ts`.
+- Implement concrete adapters (e.g., `LocalAdapter`) that implement the interface.
+- Use Context API (`DataContext`) to provide data access throughout app.
+- Custom hooks (`useCheckins`, `useWeekly`, `useGoals`) wrap context for convenience.
+
+## Local Storage
+- All localStorage keys prefixed with `arix_` and versioned (e.g., `arix_local_checkins_v01`).
+- Use helper functions `readLS<T>()` and `writeLS<T>()` with try-catch for safety.
+- Validate data on read/write; provide sensible defaults.
+- Version keys to enable future migrations.
+
+## Data Structures
+- Define TypeScript interfaces in `src/lib/types.ts` for all data models.
+- Use `Modality` union types for constrained values.
+- Date handling: use `toYMD()` helper for YYYY-MM-DD format.
+- Week calculations: use `startOfWeek()` helper with consistent week start day.
+
+## Business Logic
+- Keep computation logic in adapter classes (e.g., `computeWeeklyRollup`).
+- Validation functions (e.g., `validateCheckin`) enforce data integrity.
+- Constants for business rules (e.g., `MODALITY_FACTOR`, `DURATIONS`) in adapter files.
+- Separate data access from UI components.
+
+## Do
+- Use the DataProvider interface for all data operations.
+- Version localStorage keys for future migrations.
+- Validate data before saving.
+- Keep business logic in data layer, not components.
+
+## Don't
+- Access localStorage directly from components.
+- Hardcode localStorage keys; use constants.
+- Mix data access with UI logic.
+- Skip validation on user input.
+- Use unversioned storage keys.
+

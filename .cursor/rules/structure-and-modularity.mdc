@@ -1,0 +1,42 @@
+---
+description: Project structure, component patterns, and data-layer boundaries for JS/TS
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.js"
+  - "**/*.jsx"
+alwaysApply: false
+---
+
+# Structure and Modularity
+
+## File Organization
+- App Router structure: `app/` for routes, `components/` for reusable UI, `src/lib/` for business logic.
+- Keep page components in `app/` directory, route-specific logic in page files.
+- Shared components in `components/` organized by feature (e.g., `components/onboarding/`).
+- Data layer abstractions in `src/lib/` with clear interfaces.
+
+## Component Patterns
+- Use `"use client"` directive for interactive components that need hooks or browser APIs.
+- Keep server components as default; only mark client when necessary.
+- Extract complex logic into custom hooks (e.g., `useCheckins`, `useWeekly`).
+- Prefer composition over prop drilling; use Context for shared state.
+
+## Data Layer
+- Implement adapter pattern: `DataProvider` interface with concrete adapters (e.g., `LocalAdapter`).
+- Keep data access logic in `src/lib/` separate from UI components.
+- Version localStorage keys (e.g., `arix_*_v01`) for future migrations.
+- Use TypeScript interfaces for all data structures.
+
+## Do
+- Group related files by feature, not by type.
+- Keep components small and focused on single responsibility.
+- Use TypeScript interfaces for contracts between layers.
+- Version data storage keys for future migrations.
+
+## Don't
+- Mix server and client code without clear boundaries.
+- Put business logic directly in page components.
+- Create deeply nested folder structures.
+- Use `any` types; prefer explicit interfaces.
+

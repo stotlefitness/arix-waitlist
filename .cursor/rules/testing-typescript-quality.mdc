@@ -1,0 +1,42 @@
+---
+description: TypeScript + quality expectations for test files
+globs:
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.spec.ts"
+  - "**/*.spec.tsx"
+alwaysApply: true
+---
+
+# TypeScript, Quality, and Error Handling (Tests)
+
+## TypeScript
+- Strict mode enabled in `tsconfig.json`.
+- No `any` types; use explicit interfaces or `unknown` with type guards.
+- Path aliases configured: `@/*` maps to `./src/*`.
+- Use type inference where it improves readability.
+
+## Code Quality
+- ESLint with Next.js config (`eslint-config-next`).
+- Consistent naming: PascalCase for components, camelCase for functions/variables.
+- Extract complex logic into helper functions or custom hooks.
+- Keep functions focused on single responsibility.
+
+## Error Handling
+- Use try-catch for localStorage operations (may fail in private browsing).
+- Provide fallback values for data reads.
+- Validate user input before processing.
+- Show user-friendly error messages via toast system.
+
+## Do
+- Use TypeScript strictly; leverage type system.
+- Handle errors gracefully with fallbacks.
+- Validate all user inputs.
+- Keep functions small and testable.
+
+## Don't
+- Use `any` type; prefer proper typing.
+- Ignore localStorage errors.
+- Trust user input without validation.
+- Create functions that do multiple unrelated things.
+

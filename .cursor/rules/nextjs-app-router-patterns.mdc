@@ -1,0 +1,47 @@
+---
+description: Next.js App Router patterns (server-by-default, routing, data fetching)
+globs:
+  - "app/**/*.tsx"
+  - "app/**/*.ts"
+  - "components/**/*.tsx"
+alwaysApply: true
+---
+
+# App Router Patterns
+
+## App Router Patterns
+- Use App Router (Next.js 14+); no Pages Router patterns.
+- Server Components by default; add "use client" only when needed.
+- Layout files (`layout.tsx`) for shared UI structure.
+- Page files (`page.tsx`) for route-specific content.
+
+## Client vs Server
+- Server Components: data fetching, static content, SEO.
+- Client Components: interactivity, hooks, browser APIs, animations.
+- Keep data fetching in Server Components when possible.
+- Use client components for forms, modals, and interactive features.
+
+## Routing
+- File-based routing in `app/` directory.
+- Use `next/navigation` for client-side navigation (`useRouter`, `usePathname`).
+- Dynamic routes with `[param]` folders.
+- Route groups with `(group)` folders for organization without affecting URLs.
+
+## Data Fetching
+- Use async Server Components for data fetching (no `getServerSideProps`).
+- Client-side data fetching in Client Components with hooks.
+- Prefer loading states with `loading.tsx` files.
+- Use error boundaries with `error.tsx` files.
+
+## Do
+- Default to Server Components.
+- Use Client Components only for interactivity.
+- Leverage Next.js built-in optimizations (Image, Font, etc.).
+- Keep route logic in page files, not in components.
+
+## Don't
+- Use Pages Router patterns (`getServerSideProps`, `getStaticProps`).
+- Mix server and client code in same component without clear boundaries.
+- Fetch data in Client Components when Server Components can do it.
+- Use `useEffect` for data fetching in Server Components.
+

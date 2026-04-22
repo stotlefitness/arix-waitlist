@@ -1,0 +1,49 @@
+---
+description: Tailwind v3 styling conventions and AriX design system tokens
+globs:
+  - "**/*.tsx"
+  - "**/*.jsx"
+  - "app/**/*.css"
+  - "components/**/*.css"
+alwaysApply: true
+---
+
+# Tailwind Configuration
+
+## Tailwind Configuration
+- Using Tailwind CSS v3.3.5 (not v4).
+- Content paths configured in `tailwind.config.js` for all source directories.
+- Custom theme extensions in config file, not CSS variables for design tokens.
+- Use PostCSS with Tailwind; no CSS-in-JS libraries.
+
+## Design System
+- Dark theme default: `bg-[#0b0b10]` for main background, `bg-[#121218]` for cards.
+- Accent color: `#00ffc6` (cyan-green) for primary actions.
+- Text colors: `text-white` for primary, `text-white/60` for secondary, `text-white/40` for tertiary.
+- Border colors: `border-white/10` for subtle dividers.
+
+## Styling Patterns
+- Use utility classes directly in JSX; avoid custom CSS when Tailwind covers it.
+- Custom colors use arbitrary values: `bg-[#121218]`, `text-[#00ffc6]`.
+- Gradients: `bg-gradient-to-br from-[#001229] via-[#014b8f] to-[#00b47f]`.
+- Spacing: consistent use of `p-4`, `gap-3`, `mt-2` etc.
+- Rounded corners: `rounded-lg` (8px), `rounded-xl` (12px), `rounded-2xl` (16px).
+
+## Component Styling
+- Card pattern: `rounded-2xl border border-white/10 p-4 bg-white/5 shadow-xl shadow-black/20 backdrop-blur-sm`.
+- Button primary: `px-4 py-2 rounded-lg bg-white text-black font-medium`.
+- Button secondary: `px-3 py-2 rounded-lg bg-white/10`.
+- Input fields: `w-full bg-black border border-white/20 rounded px-3 py-2`.
+
+## Do
+- Use Tailwind utilities for all styling.
+- Follow existing color palette and spacing scale.
+- Use arbitrary values for custom colors from design system.
+- Keep component styles co-located with components.
+
+## Don't
+- Write custom CSS for things Tailwind can do.
+- Use inline styles except for dynamic values.
+- Mix Tailwind v3 patterns with v4 syntax.
+- Create one-off color values; use design system colors.
+
