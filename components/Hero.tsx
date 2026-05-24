@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 
@@ -19,38 +18,10 @@ interface SchoolCount {
 }
 
 interface HeroProps {
-  totalCount: number;
   schools: SchoolCount[];
 }
 
-function AnimatedCounter({
-  target,
-  duration = 1800,
-}: {
-  target: number;
-  duration?: number;
-}) {
-  const [value, setValue] = useState(0);
-  const started = useRef(false);
-
-  useEffect(() => {
-    if (started.current || target === 0) return;
-    started.current = true;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(Math.round(eased * target));
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [target, duration]);
-
-  return <>{value.toLocaleString()}</>;
-}
-
-export default function Hero({ totalCount, schools }: HeroProps) {
-  const schoolCount = schools.length;
+export default function Hero({ schools }: HeroProps) {
   return (
     <section className="relative pt-24 pb-16 px-6 overflow-hidden">
       {/* Background grid */}
@@ -103,14 +74,25 @@ export default function Hero({ totalCount, schools }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="flex flex-col items-center gap-8"
         >
-          <p className="text-center max-w-md">
-            <span className="text-4xl font-black text-white font-mono tabular-nums">
-              <AnimatedCounter target={totalCount} />
-            </span>
-            <span className="block text-white/55 text-base md:text-lg mt-2 leading-snug">
-              athletes from {schoolCount} schools signed up for AriX
-            </span>
-          </p>
+          <div className="flex items-center justify-center gap-12">
+            <div className="text-center">
+              <p className="text-4xl font-black text-white font-mono tabular-nums">
+                100+
+              </p>
+              <p className="text-white/55 text-sm mt-1.5">
+                athletes on the waitlist
+              </p>
+            </div>
+            <div className="w-px h-12 bg-white/10" />
+            <div className="text-center">
+              <p className="text-4xl font-black text-white font-mono tabular-nums">
+                18+
+              </p>
+              <p className="text-white/55 text-sm mt-1.5">
+                schools signed up for AriX
+              </p>
+            </div>
+          </div>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center gap-4">

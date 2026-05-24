@@ -4,22 +4,19 @@ import FeatureCards from "@/components/FeatureCards";
 import SchoolLeaderboard from "@/components/SchoolLeaderboard";
 import WaitlistForm from "@/components/WaitlistForm";
 import Footer from "@/components/Footer";
-import { getSchoolCounts, getTotalCount } from "@/app/actions";
+import { getSchoolCounts } from "@/app/actions";
 
 export const revalidate = 60;
 
 export default async function Home() {
-  const [schools, totalCount] = await Promise.all([
-    getSchoolCounts(),
-    getTotalCount(),
-  ]);
+  const schools = await getSchoolCounts();
 
   return (
     <main className="min-h-screen bg-[#0b0b10]">
       <Nav />
 
       {/* Hero: headline + map + stats */}
-      <Hero totalCount={totalCount} schools={schools} />
+      <Hero schools={schools} />
 
       {/* Feature cards */}
       <div className="border-t border-white/5">
