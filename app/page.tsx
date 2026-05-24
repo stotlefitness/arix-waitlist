@@ -14,14 +14,12 @@ export default async function Home() {
     getTotalCount(),
   ]);
 
-  const schoolCount = schools.length;
-
   return (
     <main className="min-h-screen bg-[#0b0b10]">
       <Nav />
 
       {/* Hero: headline + map + stats */}
-      <Hero totalCount={totalCount} schoolCount={schoolCount} schools={schools} />
+      <Hero totalCount={totalCount} schools={schools} />
 
       {/* Feature cards */}
       <div className="border-t border-white/5">

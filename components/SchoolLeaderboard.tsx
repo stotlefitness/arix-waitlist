@@ -14,8 +14,7 @@ interface SchoolLeaderboardProps {
 const MEDALS = ["🥇", "🥈", "🥉"];
 
 export default function SchoolLeaderboard({ schools }: SchoolLeaderboardProps) {
-  const topSchools = schools.slice(0, 10);
-  const maxCount = topSchools[0]?.count ?? 1;
+  const maxCount = Math.max(...schools.map((s) => s.count), 1);
 
   return (
     <section className="px-6 py-24 max-w-2xl mx-auto">
@@ -32,18 +31,11 @@ export default function SchoolLeaderboard({ schools }: SchoolLeaderboardProps) {
           Which school shows up first?
         </h2>
         <p className="text-white/50 text-base mb-10">
-          Athletes are representing. Get your school on the board.
+          Athletes from these schools are already on the waitlist.
         </p>
 
-        {topSchools.length === 0 ? (
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
-            <p className="text-white/40 text-sm">
-              No schools on the board yet. Be the first.
-            </p>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {topSchools.map((entry, i) => (
+        <div className="space-y-3">
+          {schools.map((entry, i) => (
               <motion.div
                 key={entry.school}
                 initial={{ opacity: 0, x: -20 }}
@@ -65,11 +57,8 @@ export default function SchoolLeaderboard({ schools }: SchoolLeaderboardProps) {
                       {entry.school}
                     </span>
                   </div>
-                  <span className="text-[#00ffc6] font-black font-mono text-sm">
-                    {entry.count}{" "}
-                    <span className="text-white/30 font-normal">
-                      {entry.count === 1 ? "athlete" : "athletes"}
-                    </span>
+                  <span className="text-[#00ffc6] text-xs font-semibold">
+                    On the waitlist
                   </span>
                 </div>
                 <div className="h-1 rounded-full bg-white/5 overflow-hidden">
@@ -85,11 +74,10 @@ export default function SchoolLeaderboard({ schools }: SchoolLeaderboardProps) {
                 </div>
               </motion.div>
             ))}
-          </div>
-        )}
+        </div>
 
         <p className="text-white/25 text-xs text-center mt-6">
-          Rankings update in real time as athletes join
+          Updates as more athletes join
         </p>
       </motion.div>
     </section>

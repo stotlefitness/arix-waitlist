@@ -1,8 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import SchoolMap from "@/components/SchoolMap";
+
+const SchoolMap = dynamic(() => import("@/components/SchoolMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full rounded-2xl border border-white/10 bg-[#0e0e14] h-[360px] md:h-[450px] flex items-center justify-center">
+      <p className="text-white/30 text-sm">Loading map…</p>
+    </div>
+  ),
+});
 
 interface SchoolCount {
   school: string;
@@ -11,7 +20,6 @@ interface SchoolCount {
 
 interface HeroProps {
   totalCount: number;
-  schoolCount: number;
   schools: SchoolCount[];
 }
 
@@ -41,7 +49,8 @@ function AnimatedCounter({
   return <>{value.toLocaleString()}</>;
 }
 
-export default function Hero({ totalCount, schoolCount, schools }: HeroProps) {
+export default function Hero({ totalCount, schools }: HeroProps) {
+  const schoolCount = schools.length;
   return (
     <section className="relative pt-24 pb-16 px-6 overflow-hidden">
       {/* Background grid */}
@@ -94,26 +103,14 @@ export default function Hero({ totalCount, schoolCount, schools }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="flex flex-col items-center gap-8"
         >
-          {/* Stats bar */}
-          <div className="flex items-center gap-10">
-            <div className="text-center">
-              <p className="text-3xl font-black text-white font-mono tabular-nums">
-                <AnimatedCounter target={totalCount} />
-              </p>
-              <p className="text-white/35 text-xs font-medium tracking-widest uppercase mt-1">
-                Athletes waiting
-              </p>
-            </div>
-            <div className="w-px h-10 bg-white/10" />
-            <div className="text-center">
-              <p className="text-3xl font-black text-white font-mono tabular-nums">
-                <AnimatedCounter target={schoolCount} />
-              </p>
-              <p className="text-white/35 text-xs font-medium tracking-widest uppercase mt-1">
-                Schools represented
-              </p>
-            </div>
-          </div>
+          <p className="text-center max-w-md">
+            <span className="text-4xl font-black text-white font-mono tabular-nums">
+              <AnimatedCounter target={totalCount} />
+            </span>
+            <span className="block text-white/55 text-base md:text-lg mt-2 leading-snug">
+              athletes from {schoolCount} schools signed up for AriX
+            </span>
+          </p>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center gap-4">

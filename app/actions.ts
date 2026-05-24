@@ -1,6 +1,7 @@
 "use server";
 
 import { supabase } from "@/lib/supabase";
+import { SCHOOLS } from "@/lib/schools";
 
 interface JoinResult {
   success: boolean;
@@ -70,9 +71,12 @@ export async function getSchoolCounts(): Promise<
     counts[row.school] = (counts[row.school] ?? 0) + 1;
   }
 
-  return Object.entries(counts)
-    .map(([school, count]) => ({ school, count }))
-    .sort((a, b) => b.count - a.count);
+  const merged = SCHOOLS.map((school) => ({
+    school,
+    count: counts[school] ?? 0,
+  }));
+
+  return merged.sort((a, b) => b.count - a.count);
 }
 
 export async function getTotalCount(): Promise<number> {
