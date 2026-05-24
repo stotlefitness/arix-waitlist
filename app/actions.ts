@@ -72,8 +72,7 @@ export async function getSchoolCounts(): Promise<
 
   return Object.entries(counts)
     .map(([school, count]) => ({ school, count }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 10);
+    .sort((a, b) => b.count - a.count);
 }
 
 export async function getTotalCount(): Promise<number> {
